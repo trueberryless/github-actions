@@ -21,7 +21,7 @@ jobs:
           fi
           
       - name: Create new file if necessary
-        if: $file-exists
+        if: $file-exists == 'true'
         uses: jsdaniell/create-json@v1
         with:
           name: "version.json"
