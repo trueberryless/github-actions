@@ -4,16 +4,13 @@ on:
   push:
     branches: [main]
 
-env:
-  PAT: ${{ secrets.PAT }}
-
 jobs:
   new-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
-          token: $PAT
+          token: ${{ secrets.PAT }}
       
       - name: Check if file exists
         run: |
