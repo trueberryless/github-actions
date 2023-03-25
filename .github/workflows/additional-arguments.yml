@@ -15,7 +15,11 @@ jobs:
 
       - name: Minor version
         if: contains(github.event.head_commit.message, 'version-minor')
-        run: echo "New minor version"
+        run: |
+          echo "New minor version"
+          docker pull trueberryless/trainit:latest
+          DOCKER_TAG=$(docker inspect --format '{{ index .RepoDigests 0 }}' trueberryless/trainit:latest | cut -d "@" -f 2)
+          echo "Latest Docker image version: $DOCKER_TAG"
       
       - name: Major version
         if: contains(github.event.head_commit.message, 'version-major')
