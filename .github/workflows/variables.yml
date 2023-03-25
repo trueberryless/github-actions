@@ -43,12 +43,12 @@ jobs:
           echo "PATCH=${{steps.version.outputs.patch}}" >> $GITHUB_ENV
 
       - run: |
-          echo $MAJOR
-          echo $MINOR
-          echo $PATCH
+          echo ${{ env.MINOR }}
+          echo ${{ env.MINOR }}
+          echo ${{ env.MINOR }}
           
       - name: add 1
-        run: echo "MINOR=$(($MINOR+1))" >> $GITHUB_ENV
+        run: echo "MINOR=$((${{ env.MINOR }}+1))" >> $GITHUB_ENV
           
       - name: write_json
         id: create-json
