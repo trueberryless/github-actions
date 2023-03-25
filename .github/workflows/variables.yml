@@ -23,7 +23,10 @@ jobs:
       - run: |
           echo $MAJOR
           echo $MINOR
-          echo $PATCH       
+          echo $PATCH
+          
+      - name: add 1
+        run: echo "MINOR=$($MINOR+1)" >> $GITHUB_ENV
           
       - name: write_json
         id: create-json
