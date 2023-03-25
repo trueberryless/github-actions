@@ -4,11 +4,16 @@ on:
   push:
     branches: [main]
 
+env:
+  PAT: ${{ github.token }}
+
 jobs:
   update-artifacts:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: $PAT
       
       - name: Check if file exists
         run: |
