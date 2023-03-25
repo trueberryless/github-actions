@@ -1,0 +1,17 @@
+name: Variables (in settings)
+
+on: push
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print the value of MY_VAR
+        run: echo ${{ vars.MY_VAR }}
+        
+      - name: Increase MY_VAR by 1
+        run: echo $(( ${{ vars.MY_VAR }} + 1 ))
+
+      - name: Print the updated value of MY_VAR
+        run: echo ${{ vars.MY_VAR }}
