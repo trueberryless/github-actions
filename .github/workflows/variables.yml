@@ -3,12 +3,9 @@ name: Read and update artifacts
 on:
   push:
     branches: [main]
-   
 
 jobs:
   update-artifacts:
     runs-on: ubuntu-latest
-    environment:
-      name: variables
     steps:
       - uses: actions/checkout@v3
