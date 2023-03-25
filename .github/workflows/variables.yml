@@ -10,15 +10,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: read_json
-        id: variables
+        id: version
         uses: zoexx/github-action-json-file-properties@release
         with:
-          file_path: ".github/artifacts/variables.json"
+          file_path: ".github/artifacts/version.json"
           
       - run: |
-          echo "MAJOR=${{steps.variables.outputs.major}}" >> $GITHUB_ENV
-          echo "MINOR=${{steps.variables.outputs.minor}}" >> $GITHUB_ENV
-          echo "PATCH=${{steps.variables.outputs.patch}}" >> $GITHUB_ENV
+          echo "MAJOR=${{steps.version.outputs.major}}" >> $GITHUB_ENV
+          echo "MINOR=${{steps.version.outputs.minor}}" >> $GITHUB_ENV
+          echo "PATCH=${{steps.version.outputs.patch}}" >> $GITHUB_ENV
 
       - run: |
           echo $MAJOR
@@ -30,12 +30,12 @@ jobs:
           
       - name: write_json
         id: create-json
-        uses: jsdaniell/create-json@v1.2.2
+        uses: jsdaniell/create-json@v1
         with:
-          name: "variables.json"
+          name: "version.json"
           json: '{ "major": $MAJOR, "minor": $MINOR, "patch": $PATCH }'
           dir: '.github/artifacts/'
           
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: update variables.json (automated)
+          commit_message: update version.json (automated)
