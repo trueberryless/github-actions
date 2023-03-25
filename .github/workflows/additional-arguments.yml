@@ -18,9 +18,9 @@ jobs:
           MINOR=$(echo $VERSION | cut -d. -f2)
           PATCH=$(echo $VERSION | cut -d. -f3)
         env:
-          MAJOR: ${{ MAJOR }}
-          MINOR: ${{ MINOR }}
-          PATCH: ${{ PATCH }}
+          MAJOR: $MAJOR
+          MINOR: $MINOR
+          PATCH: $PATCH
       - name: Print version variables
         run: |
           echo "MAJOR version: $MAJOR"
