@@ -55,7 +55,7 @@ jobs:
         uses: jsdaniell/create-json@v1
         with:
           name: "version.json"
-          json: '{ "major": $MAJOR, "minor": $MINOR, "patch": $PATCH }'
+          json: '{ "major": ${{ env.MAJOR }}, "minor": ${{ env.MINOR }}, "patch": ${{ env.PATCH }} }'
           dir: '.github/artifacts/'
           
       - uses: stefanzweifel/git-auto-commit-action@v4
