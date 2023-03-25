@@ -9,6 +9,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      
+      - name: Check if file exists
+        run: |
+          if [ -f .github/artifacts/version.json ]; then
+            echo "File exists"
+            echo "file-exists:true" >> $GITHUB_ENV
+          else
+            echo "File does not exist"
+            echo "file-exists:false" >> $GITHUB_ENV
+          fi
+          
+      - name: Create new file if necessary
+        if: $file-exists
+        uses: jsdaniell/create-json@v1
+        with:
+          name: "version.json"
+          json: '{ "major": 0, "minor": 0, "patch": 0 }'
+          dir: '.github/artifacts/'
+      
       - name: read_json
         id: version
         uses: zoexx/github-action-json-file-properties@release
