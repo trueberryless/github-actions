@@ -23,6 +23,8 @@ jobs:
             echo "FILE_EXISTS=false" >> $GITHUB_ENV
           fi
           
+      - run: echo ${{ env.FILE_EXISTS }}
+          
       - name: Create new file if necessary
         if: ${{ env.FILE_EXISTS }} == 'false'
         uses: jsdaniell/create-json@v1
