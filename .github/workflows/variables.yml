@@ -41,7 +41,7 @@ jobs:
       run: |
         echo "Increasing MINOR by 1..."
         ((MINOR++))
-        echo "MAJOR=$MAJOR" > .github/artifacts/variables.txt
+        echo "MAJOR=$MAJOR" >> .github/artifacts/variables.txt
         echo "MINOR=$MINOR" >> .github/artifacts/variables.txt
         echo "PATCH=$PATCH" >> .github/artifacts/variables.txt
         echo "New values:"
