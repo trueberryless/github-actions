@@ -15,10 +15,10 @@ jobs:
         with:
           file_path: ".github/artifacts/variables.json"
           
-        env:
-          MAJOR: ${{steps.variables.outputs.major}}
-          MINOR: ${{steps.variables.outputs.minor}}
-          PATCH: ${{steps.variables.outputs.patch}}
+      - run: |
+          echo "MAJOR=${{steps.variables.outputs.major}}" >> $GITHUB_ENV
+          echo "MINOR=${{steps.variables.outputs.minor}}" >> $GITHUB_ENV
+          echo "PATCH=${{steps.variables.outputs.patch}}" >> $GITHUB_ENV
 
       - run: |
           echo $MAJOR
