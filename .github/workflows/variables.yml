@@ -8,7 +8,7 @@ env:
   PAT: ${{ github.token }}
 
 jobs:
-  update-artifacts:
+  new-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
