@@ -9,13 +9,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: get properties
-        id: json_properties
+      - name: read_json
+        id: variables
         uses: zoexx/github-action-json-file-properties@release
         with:
           file_path: ".github/artifacts/variables.json"
 
       - run: |
-          echo ${{steps.json_properties.outputs.major}}
-          echo ${{steps.json_properties.outputs.minor}}
-          echo ${{steps.json_properties.outputs.patch}}
+          echo ${{steps.variables.outputs.major}}
+          echo ${{steps.variables.outputs.minor}}
+          echo ${{steps.variables.outputs.patch}}
+          
+      - name: write_json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "variables.json"
+          json: '{ "major": ${{steps.variables.outputs.major}}, "minor": ${{steps.variables.outputs.minor}}, "patch": ${{steps.variables.outputs.patch}} }'
+          dir: '.github/artifacts/'
