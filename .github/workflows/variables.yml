@@ -1,22 +1,51 @@
-name: Variables (in settings)
+name: Read and update artifacts
 
-on: push
-
-env:
-  env_var: ${{ vars.MY_VAR }}
+on:
+  push:
+    branches: [main]
 
 jobs:
-
-  build:
+  update-artifacts:
     runs-on: ubuntu-latest
     steps:
-      - name: Print the value of MY_VAR
-        run: echo $env_var
-        
-      - name: Increase MY_VAR by 1
-        run: |
-          updated_value=$(( $env_var + 1 ))
-          echo "MY_VAR=$updated_value" >> $GITHUB_ENV
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Print the updated value of MY_VAR
-        run: echo $env_var
+    - name: Read artifacts
+      id: read-artifacts
+      run: |
+        mkdir -p .github/artifacts
+        if [ -f .github/artifacts/variables.txt ]; then
+          echo "Reading artifacts..."
+          MAJOR=$(head -n1 .github/artifacts/variables.txt)
+          MINOR=$(head -n2 .github/artifacts/variables.txt | tail -n1)
+          PATCH=$(tail -n1 .github/artifacts/variables.txt)
+        else
+          echo "Artifacts not found. Initializing to 0..."
+          MAJOR=0
+          MINOR=0
+          PATCH=0
+        fi
+        echo "MAJOR=$MAJOR" >> $GITHUB_ENV
+        echo "MINOR=$MINOR" >> $GITHUB_ENV
+        echo "PATCH=$PATCH" >> $GITHUB_ENV
+
+    - name: Print current values
+      run: |
+        echo "Current values:"
+        echo "MAJOR=$MAJOR"
+        echo "MINOR=$MINOR"
+        echo "PATCH=$PATCH"
+
+    - name: Update MINOR artifact
+      run: |
+        echo "Increasing MINOR by 1..."
+        ((MINOR++))
+        echo "MAJOR=$MAJOR" > .github/artifacts/variables.txt
+        echo "MINOR=$MINOR" >> .github/artifacts/variables.txt
+        echo "PATCH=$PATCH" >> .github/artifacts/variables.txt
+        echo "New values:"
+        echo "MAJOR=$MAJOR"
+        echo "MINOR=$MINOR"
+        echo "PATCH=$PATCH"
+      shell: bash
