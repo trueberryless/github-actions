@@ -4,6 +4,29 @@ on: push
 
 jobs:
 
+  get-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get Docker image version
+        run: |
+          IMAGE_NAME="your-docker-image"
+          IMAGE_TAG=$(git describe --tags --abbrev=0 --match "${IMAGE_NAME}-*" | cut -d "-" -f2)
+          VERSION=$(docker inspect --format='{{index .Config.Labels "version"}}' "${IMAGE_NAME}:${IMAGE_TAG}")
+          MAJOR=$(echo $VERSION | cut -d. -f1)
+          MINOR=$(echo $VERSION | cut -d. -f2)
+          PATCH=$(echo $VERSION | cut -d. -f3)
+        env:
+          MAJOR: ${{ MAJOR }}
+          MINOR: ${{ MINOR }}
+          PATCH: ${{ PATCH }}
+      - name: Print version variables
+        run: |
+          echo "MAJOR version: $MAJOR"
+          echo "MINOR version: $MINOR"
+          echo "PATCH version: $PATCH"
+
   read-argument:
     runs-on: ubuntu-latest
     steps:
@@ -15,11 +38,7 @@ jobs:
 
       - name: Minor version
         if: contains(github.event.head_commit.message, 'version-minor')
-        run: |
-          echo "New minor version"
-          docker pull trueberryless/trainit:latest
-          DOCKER_TAG=$(docker inspect --format '{{ index .RepoDigests 0 }}' trueberryless/trainit:latest | cut -d "@" -f 2)
-          echo "Latest Docker image version: $DOCKER_TAG"
+        run: echo "New minor version"
       
       - name: Major version
         if: contains(github.event.head_commit.message, 'version-major')
