@@ -9,3 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: get properties
+        id: json_properties
+        uses: zoexx/github-action-json-file-properties@release
+        with:
+          file_path: ".github/artifacts/variables.json"
+
+      - run: |
+          echo ${{steps.json_properties.outputs.major}}
+          echo ${{steps.json_properties.outputs.minor}}
+          echo ${{steps.json_properties.outputs.patch}}
