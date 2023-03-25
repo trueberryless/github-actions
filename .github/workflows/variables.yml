@@ -35,3 +35,7 @@ jobs:
           name: "variables.json"
           json: '{ "major": $MAJOR, "minor": $MINOR, "patch": $PATCH }'
           dir: '.github/artifacts/'
+          
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: update variables.json (automated)
