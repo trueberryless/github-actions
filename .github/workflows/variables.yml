@@ -14,11 +14,16 @@ jobs:
         uses: zoexx/github-action-json-file-properties@release
         with:
           file_path: ".github/artifacts/variables.json"
+          
+        env:
+          MAJOR: ${{steps.variables.outputs.major}}
+          MINOR: ${{steps.variables.outputs.minor}}
+          PATCH: ${{steps.variables.outputs.patch}}
 
       - run: |
-          echo ${{steps.variables.outputs.major}}
-          echo ${{steps.variables.outputs.minor}}
-          echo ${{steps.variables.outputs.patch}}
+          echo $MAJOR
+          echo $MINOR
+          echo $PATCH       
           
       - name: write_json
         id: create-json
