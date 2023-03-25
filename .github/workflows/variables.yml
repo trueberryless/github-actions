@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: mkdir -p artifact/major.txt
+      - run: mkdir -p artifact
       - run: echo 0 > artifact/major.txt
 
       - uses: actions/upload-artifact@v3
