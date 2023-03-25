@@ -1,0 +1,14 @@
+name: Additional Arguments in Push
+
+on: push
+
+jobs:
+
+  read-argument:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Print arguments
+        run: echo "${{ toJson(github.event.head_commit.push_options) }}"
+  
+  
