@@ -14,14 +14,14 @@ jobs:
         run: |
           if [ -f .github/artifacts/version.json ]; then
             echo "File exists"
-            echo "file-exists=true" >> $GITHUB_ENV
+            echo "FILE_EXISTS=true" >> $GITHUB_ENV
           else
             echo "File does not exist"
-            echo "file-exists=false" >> $GITHUB_ENV
+            echo "FILE_EXISTS=false" >> $GITHUB_ENV
           fi
           
       - name: Create new file if necessary
-        if: $file-exists == 'true'
+        if: $FILE_EXISTS == 'true'
         uses: jsdaniell/create-json@v1
         with:
           name: "version.json"
