@@ -3,23 +3,12 @@ name: Read and update artifacts
 on:
   push:
     branches: [main]
+   
 
 jobs:
   update-artifacts:
     runs-on: ubuntu-latest
+    environment:
+      name: variables
     steps:
       - uses: actions/checkout@v3
-      - run: mkdir -p artifact
-      - run: echo 0 > artifact/major.txt
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: major
-          path: artifact/major.txt
-          
-      - uses: actions/download-artifact@v3
-        with:
-          name: major
-
-      - name: Display structure of downloaded files
-        run: ls -R
