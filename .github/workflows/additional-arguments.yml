@@ -8,7 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Print arguments
-        run: echo "${{ github.event.head_commit.message }}"
+      
+      - name: Patch version
+        if: contains(${{ github.event.head_commit.message }}, "version-patch")
+        run: echo "New patch version"
+
+      - name: Minor version
+        if: contains(${{ github.event.head_commit.message }}, "version-minor")
+        run: echo "New minor version"
+      
+      - name: Major version
+        if: contains(${{ github.event.head_commit.message }}, "version-major")
+        run: echo "New major version"
   
   
