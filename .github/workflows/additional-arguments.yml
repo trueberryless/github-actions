@@ -10,15 +10,15 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Patch version
-        if: contains(${{ github.event.head_commit.message }}, "version-patch")
+        if: contains(github.event.head_commit.message, 'version-patch')
         run: echo "New patch version"
 
       - name: Minor version
-        if: contains(${{ github.event.head_commit.message }}, "version-minor")
+        if: contains(github.event.head_commit.message, 'version-minor')
         run: echo "New minor version"
       
       - name: Major version
-        if: contains(${{ github.event.head_commit.message }}, "version-major")
+        if: contains(github.event.head_commit.message, 'version-major')
         run: echo "New major version"
   
   
