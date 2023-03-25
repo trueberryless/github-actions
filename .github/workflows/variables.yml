@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 env:
-  PAT: ${{ secret.PAT }}
+  PAT: ${{ secrets.PAT }}
 
 jobs:
   new-version:
