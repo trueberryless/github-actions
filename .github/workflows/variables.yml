@@ -24,7 +24,7 @@ jobs:
           fi
           
       - name: Create new file if necessary
-        if: ${{ env.FILE_EXISTS }} == 'true'
+        if: ${{ env.FILE_EXISTS }} == 'false'
         uses: jsdaniell/create-json@v1
         with:
           name: "version.json"
