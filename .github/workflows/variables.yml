@@ -2,18 +2,21 @@ name: Variables (in settings)
 
 on: push
 
+env:
+  env_var: ${{ vars.MY_VAR }}
+
 jobs:
 
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Print the value of MY_VAR
-        run: echo ${{ vars.MY_VAR }}
+        run: echo $env_var
         
       - name: Increase MY_VAR by 1
         run: |
-          updated_value=$(( ${{ vars.MY_VAR }} + 1 ))
+          updated_value=$(( $env_var + 1 ))
           echo "MY_VAR=$updated_value" >> $GITHUB_ENV
 
       - name: Print the updated value of MY_VAR
-        run: echo ${{ vars.MY_VAR }}
+        run: echo $env_var
