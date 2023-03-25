@@ -13,7 +13,7 @@ jobs:
       - name: Increase MY_VAR by 1
         run: |
           updated_value=$(( ${{ vars.MY_VAR }} + 1 ))
-          echo "${{ vars.MY_VAR }}=$updated_value" >> $GITHUB_OUTPUT
+          echo "MY_VAR=$updated_value" >> $GITHUB_ENV
 
       - name: Print the updated value of MY_VAR
         run: echo ${{ vars.MY_VAR }}
