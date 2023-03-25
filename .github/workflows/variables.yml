@@ -16,3 +16,10 @@ jobs:
         with:
           name: major
           path: artifact/major.txt
+          
+      - uses: actions/download-artifact@v3
+        with:
+          name: major
+
+      - name: Display structure of downloaded files
+        run: ls -R
