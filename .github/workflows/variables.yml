@@ -14,10 +14,10 @@ jobs:
         run: |
           if [ -f .github/artifacts/version.json ]; then
             echo "File exists"
-            echo "file-exists:true" >> $GITHUB_ENV
+            echo "file-exists=true" >> $GITHUB_ENV
           else
             echo "File does not exist"
-            echo "file-exists:false" >> $GITHUB_ENV
+            echo "file-exists=false" >> $GITHUB_ENV
           fi
           
       - name: Create new file if necessary
